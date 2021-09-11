@@ -8,6 +8,8 @@ library(shinyjs)
 library(testthat)
 
 ships <- readr::read_csv(unzip("ships_04112020.zip", "ships.csv"))
+##3.1 million observations is too big to handle. We are taking 1 million observations
+ships<- ships[c(1:1000000),]  
 ships$Time <- format(ships$DATETIME,"%H:%M:%S")
 
 
