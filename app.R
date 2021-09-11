@@ -103,7 +103,7 @@ ui <- semanticPage(
     ),
     
     uiOutput("welcomeModal"),
-    title = h2(class = "ui header", icon("anchor"), div(class = "content", "Ship Movement")), 
+    title = "Ship Movement", 
     includeCSS("app/dark_modee.css"),
     grid(myGrid,
          # We can define the css style of the grid using container_style
