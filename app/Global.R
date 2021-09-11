@@ -1,3 +1,12 @@
+library(DT)
+library(leaflet)
+library(readr)
+library(geosphere)
+library(shinyjs, warn.conflicts = FALSE)
+library(testthat, warn.conflicts = FALSE)
+library(utils, warn.conflicts = FALSE)
+
+
 max_dist<- function(ship){
   n<- which(ships$SHIPNAME == ship)
   ship2_new<- ships[n,]
@@ -45,10 +54,38 @@ ships_ves<- function(vessel){
     ships_ves$DWT[i]<- ships$DWT[ships$SHIPNAME== ships_ves$.][1]
   }
   return(ships_ves)
-
+  
 }
 
 
 intro <- as.character("Maritime transport (or ocean transport) and fluvial transport, or more generally waterborne transport, is the transport of people (passengers) or goods (cargo) via waterways. Freight transport by sea has been widely used throughout recorded history. App goes into the details of movement of differreent categories of ships in a certain time period. This application has been developed to observe the patterrns of maritime movement in Poland.")
 desc<- as.character("Note: Dashboard is created by using Shiny.semantic packag of Appsilon. It is developed to observe the trends and patterns about ships in Poland.")
-                    
+
+
+myGrid <- grid_template(
+  default = list(
+    # Here we define the data.frame describing our layout
+    # The easiest way is to use rbind so that the layout can be 'visualized' in code
+    areas = rbind(
+      c("header", "info1", "info2"),
+      c("map",   "map",   "map"),
+      c("note",   "note",   "note"),
+      c("input1",   "input2",   "general")
+    ),
+    # Then we define the dimensions of the different elements of the layout
+    # We can use any valid css units to make the layout behave exactly as desired
+    rows_height = c("100px", "2fr", "1fr", "100px"),
+    cols_width = c("34%", "33%", "33%")
+  ),
+  # This is optional, but we can define a specific layout for mobile (screen width below 768px)
+  mobile = list(
+    areas = rbind(
+      c("header", "info1", "info2"),
+      c("map",   "map",   "map"),
+      c("note",   "note",   "note"),
+      c("input1",   "input2",   "general")
+    ),
+    rows_height = c("100px", "2fr", "1fr", "100px"), # Notice how we changed the rows heights here
+    cols_width = c("34%", "33%", "33%")
+  )
+)
